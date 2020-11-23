@@ -1,20 +1,18 @@
 package server;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayDeque;
 import java.util.ArrayList;
-import java.util.Deque;
-import java.util.Random;
+
 
 public class ServerData {
 	
 	static ArrayList<Player> players;
 	static int totalPlayerCount;
+	
+	static Minesweeper publicGame;
+	static ArrayList<Minesweeper> privateGames;
+	
 	
 	public static void main(String argv[]) throws Exception {
 		
@@ -40,22 +38,10 @@ public class ServerData {
 		}
 
 	}
-	public static void generateTiles() {
-		//ten random bombs
-		int total = 100;
-		//Improved versions may incorporate a command to determine difficulty or other options
-		int b = 10;
-		//determines how many bombs remaining can be pressed on grid
-		Random bomberMan = new Random(); //Used for randomized bomb placement
-		ArrayList<DeepBomb>allPoints = new ArrayList<>();
-		//used for data calling 
-		for (int m = 0; m<total; m++) {
-			int j = bomberMan.nextInt(10); //0-9, 9 == bomb. 1/10 chance of a bomb.
-			if (b == 0) { j = 0; }
-			if (b >= 100 - m) j = 9;
-			allPoints.add(new DeepBomb(j,allPoints));
-			if (j == 9) b--;
-			}
+	//public static void joinPublic(Player p) {
 		
-	}
+	//}
+	//public static void joinPrivate(Player p, ) {
+		
+	//}
 }
