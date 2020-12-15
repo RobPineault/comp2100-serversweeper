@@ -55,10 +55,10 @@ public class User {
 		inPrivate = true;
 		updateBoard(activeLobby.copyTiles());
 	}
+	public boolean inPrivate() {
+		return inPrivate;
+	}
 	public void stopPlaying() {
-		if(inPrivate && activeLobby.numPlayers() == 1) {
-			ServerData.privateGames.remove(activeLobby);
-		}
 		inPublic = false;
 		inPractice = false;
 		inPrivate = false;

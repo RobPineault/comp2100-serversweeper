@@ -14,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -25,6 +26,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontPosture;
 import javafx.scene.text.FontWeight;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
@@ -62,9 +64,9 @@ public class ClientFXBase extends Application {
 		app = a;
 		root = new StackPane();
 		app.setTitle("ServerSweeper");
-		app.setScene(new Scene(root, 725, 625));
+		app.setScene(new Scene(root, 750, 625));
 		app.show();
-		int port = 8080;
+		int port = 80;
 		try {
 			// connect to server
 			socket = new Socket("localhost", port);
@@ -111,8 +113,10 @@ public class ClientFXBase extends Application {
 		root.getChildren().add(mainMenu);
 	}
 
-	private void createMenu() {
+	private void createMenu() {		
 		VBox menu = new VBox(10);
+		Text menuTitle = new Text("Server Sweeper");
+		menuTitle.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 30));
 		Button practice = new Button("Practice");
 		practice.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -159,6 +163,7 @@ public class ClientFXBase extends Application {
 				}
 			}
 		});
+		Label codeLabel = new Label("Lobby code");
 		TextField codeInput = new TextField();
 		Button joinButton = new Button("Join lobby");
 		joinButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -178,8 +183,9 @@ public class ClientFXBase extends Application {
 				}
 			}
 		});
-		HBox joinContainer = new HBox(5, codeInput, joinButton);		
-		menu.getChildren().addAll(practice, publicButton, hostButton, joinContainer);
+		VBox joinContainer = new VBox(codeLabel, new HBox(5, codeInput, joinButton));
+		//joinContainer.setAlignment(Pos.TOP_CENTER);
+		menu.getChildren().addAll(menuTitle, practice, publicButton, hostButton, joinContainer);
 		mainMenu = menu;
 	}
 
@@ -199,8 +205,9 @@ public class ClientFXBase extends Application {
 		}
 		minesweeper.add(gameBoard, 0, 0, 1, 2);
 
-		Button flagger = new Button("Flag");
+		ToggleButton flagger = new ToggleButton("Flag");
 		flagger.setPrefSize(235, 50);
+		flagger.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 20));
 		flagOn = false;
 		flagger.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -225,6 +232,7 @@ public class ClientFXBase extends Application {
 
 		Button toMenu = new Button("Back to Menu");
 		toMenu.setPrefSize(235, 50);
+		toMenu.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 20));
 		toMenu.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent e) {
@@ -249,24 +257,18 @@ public class ClientFXBase extends Application {
 			if(inPrivateLobby) {
 				Label code = new Label("Lobby Code: " + lobbyCode);
 				code.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 20));
-				//minesweeper.add(code, 1, 2, 1, 1);
 				sidebar.getChildren().add(code);
 			}
 			
 			statusLabel = new Label();			
 			Label statusTitle = new Label("Game Status");
-			statusTitle.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 20));
-			
+			statusTitle.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 20));			
 			VBox gameStatus = new VBox(5, statusTitle, statusLabel);
-			//gameStatus.setPadding(new Insets(0, 0, 0, 10));
-			//minesweeper.add(gameStatus, 1, 0, 1, 1);
 			
 			Label updateTitle = new Label("Live Updates");
 			updateTitle.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 20));
 			updateLabel = new Label();
-			VBox gameUpdates = new VBox(5, updateTitle, updateLabel);
-			//gameUpdates.setPadding(new Insets(20, 0, 0, 20));
-			
+			VBox gameUpdates = new VBox(5, updateTitle, updateLabel);			
 			
 			sidebar.getChildren().addAll(gameStatus, gameUpdates);
 			minesweeper.add(sidebar, 1, 0, 1, 3);
@@ -324,12 +326,6 @@ public class ClientFXBase extends Application {
 			tile.setDisable(true);
 		}
 	}
-	/*
-	private void enableAll() {
-		for (Button tile : tileArray) {
-			tile.setDisable(false);
-		}
-	}*/
 	private void resetBoard() {
 		for (boolean f : flagArray) {
 			if (f)

@@ -51,10 +51,9 @@ public class Player implements Runnable {
 				String data = message.split(":")[1];
 				System.out.println("command received: " + command);
 				if (!user.isPlaying()) {
-					// menu:					
+					// menu commands					
 					switch (command) {
 					case "practice":
-						System.out.println("executing practice");
 						startPractice();
 						break;
 					case "public":
@@ -71,12 +70,11 @@ public class Player implements Runnable {
 						break;
 					}
 				} else {
-					// game:
-					// tile press, stop playing
+					// game commands
 					switch (command) {
-					case "quit":
-						user.activeLobby.leave(this);
-						user.stopPlaying();					
+					case "quit":	
+						user.activeLobby.leave(this, user.inPrivate());
+						user.stopPlaying();							
 						out.writeBytes("quit: \r\n");
 						System.out.println(user.name + " has quit!");
 						break;
@@ -149,10 +147,10 @@ public class Player implements Runnable {
 	private void createPrivateLobby() {
 		try {
 			Lobby newLobby = new Lobby();			
-			ServerData.privateGames.add(newLobby);
+			ServerData.privateGames.add(newLobby);				
+			out.writeBytes(newLobby.ID + "\r\n");	
 			newLobby.join(this);
 			user.startPrivate(newLobby);
-			out.writeBytes(newLobby.ID + "\r\n");							
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -169,10 +167,10 @@ public class Player implements Runnable {
 			if(target == null) {				
 				out.writeBytes("incorrect\r\n");				
 			}
-			else {
+			else {			
+				out.writeBytes("correct\r\n");	
 				target.join(this);
 				user.startPrivate(target);
-				out.writeBytes("correct\r\n");			
 			}
 						
 		} catch (IOException e) {

@@ -49,9 +49,11 @@ public class Lobby {
 		}
 		return copy;
 	}
-	public void leave(Player p) {
+	public void leave(Player p, boolean isPrivate) {
 		players.remove(p);
 		userBroadcast(p.user, "has left!");
+		if(isPrivate && players.size() == 0)
+			ServerData.privateGames.remove(this);
 	}
 	public void handleWinEvent(User u) {
 		userBroadcast(u, "Won!");
