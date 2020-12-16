@@ -76,6 +76,7 @@ public class User {
 		if(inPublic || inPrivate) {
 			if(!isHalfway && score >= 45) 
 				activeLobby.handleProgressEvent(this);
+				isHalfway = true;
 			if(score == 90)
 				activeLobby.handleWinEvent(this);
 		}
