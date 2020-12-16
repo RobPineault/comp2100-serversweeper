@@ -58,6 +58,9 @@ public class User {
 	public boolean inPrivate() {
 		return inPrivate;
 	}
+	public boolean inPractice() {
+		return inPractice;
+	}
 	public void stopPlaying() {
 		inPublic = false;
 		inPractice = false;

@@ -117,6 +117,7 @@ public class ClientFXBase extends Application {
 		VBox menu = new VBox(10);
 		Text menuTitle = new Text("Server Sweeper");
 		menuTitle.setFont(Font.font("Segoe UI", FontWeight.SEMI_BOLD, FontPosture.REGULAR, 30));
+		
 		Button practice = new Button("Practice");
 		practice.setOnAction(new EventHandler<ActionEvent>() {
 			@Override

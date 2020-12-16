@@ -73,7 +73,8 @@ public class Player implements Runnable {
 					// game commands
 					switch (command) {
 					case "quit":	
-						user.activeLobby.leave(this, user.inPrivate());
+						if(user.activeLobby != null)
+							user.activeLobby.leave(this, user.inPrivate());
 						user.stopPlaying();							
 						out.writeBytes("quit: \r\n");
 						System.out.println(user.name + " has quit!");
