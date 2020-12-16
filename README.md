@@ -24,7 +24,7 @@ Server Sweeper is a modified version of the classic pc game / time waster known 
 
 ## Demo video
 
-
+https://www.youtube.com/watch?v=SyizfL8u3g4
 
 ## Contributors
 
